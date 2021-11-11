@@ -8,4 +8,3 @@ A Module 1 Back End Final Project for [Turing School of Software & Design](https
 ![pull requests](https://img.shields.io/github/issues-pr-closed/ParkerLockhart/enigma_project)
 ![rspec](https://img.shields.io/gem/v/rspec?label=rspec)
 ![simplecov](https://img.shields.io/gem/v/simplecov?label=simplecov)
-[![Coverage](https://ParkerLockhart.github.io/enigma_project/badge.svg)](https://github.com/ParkerLockhart/enigma_project)
