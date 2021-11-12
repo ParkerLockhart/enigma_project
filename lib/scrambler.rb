@@ -20,4 +20,12 @@ module Scrambler
     end
   end
 
+  def shift_generator(key, offset)
+    key = {"A" => key.slice(0, 2), "B" => key.slice(1, 2), "C" => key.slice(2, 2), "D" => key.slice(3, 2)}
+    key.transform_values! do |v|
+      v.to_i
+    end
+    shift = key.merge(offset) { |k, new, old| new + old }
+  end
+
 end
