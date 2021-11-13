@@ -39,4 +39,13 @@ describe Scrambler do
       expect(a_class.scramble(message, "02715", "08041995")).not_to eq(message)
     end
   end
+
+  describe '#unscramble' do
+    it 'decrypts' do
+      cipher = "jgnnqbyqtnf!"
+      expect(a_class.unscramble(cipher, "02715", "08041995")).to be_instance_of(String)
+      expect(a_class.unscramble(cipher, "02715", "08041995").length).to eq(cipher.length)
+      expect(a_class.unscramble(cipher, "02715", "08041995")).not_to eq(cipher)
+    end
+  end 
 end
