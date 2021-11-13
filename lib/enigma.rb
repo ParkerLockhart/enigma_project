@@ -2,7 +2,6 @@ require './lib/scrambler'
 
 class Enigma
   include Scrambler
-  attr_reader
 
   def initialize
   end
@@ -13,5 +12,13 @@ class Enigma
     :key => key,
     :date => date
   }
+  end
+
+  def decrypt(cipher, key, date = Date.today)
+    output = {
+      :decryption => unscramble(cipher, key, date),
+      :key => key,
+      :date => date
+    }
   end
 end
