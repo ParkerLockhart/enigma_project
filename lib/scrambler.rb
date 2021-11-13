@@ -68,6 +68,41 @@ module Scrambler
     message.join
   end
 
+  def unscramble(cipher, key, date)
+    offset = offset_generator(date)
+    shift = shift_generator(key, offset)
+    set = ("a".."z").to_a << " "
+    a = shift_a
+    b = shift_b
+    c = shift_c
+    d = shift_d
+
+    cipher = cipher.each_char.to_a
+
+    cipher.each_with_index do |char, index|
+      if set.include?(char)
+        if a.include?(index)
+          x = set.find_index(char)
+          set = set.rotate(-shift["A"])
+          char.replace(set[x])
+        elsif b.include?(index)
+          x = set.find_index(char)
+          set = set.rotate(-shift["B"])
+          char.replace(set[x])
+        elsif c.include?(index)
+          x = set.find_index(char)
+          set = set.rotate(-shift["C"])
+          char.replace(set[x])
+        elsif d.include?(index)
+          x = set.find_index(char)
+          set = set.rotate(-shift["D"])
+          char.replace(set[x])
+        end
+      end
+    end
+    cipher.join
+  end
+
   def shift_a
     range = (0..5000)
     index = []
