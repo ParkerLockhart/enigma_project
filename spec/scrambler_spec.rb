@@ -31,4 +31,12 @@ describe Scrambler do
     end
   end
 
+  describe '#scramble' do
+    it 'encrypts' do
+      message = "Hello World!"
+      expect(a_class.scramble(message, "02715", "08041995")).to be_instance_of(String)
+      expect(a_class.scramble(message, "02715", "08041995").length).to eq(message.length)
+      expect(a_class.scramble(message, "02715", "08041995")).not_to eq(message)
+    end
+  end
 end
