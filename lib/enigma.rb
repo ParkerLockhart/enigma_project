@@ -6,4 +6,12 @@ class Enigma
 
   def initialize
   end
+
+  def encrypt(message, key = key_generator, date = Date.today)
+  output = {
+    :encryption => scramble(message, key, date),
+    :key => key,
+    :date => date
+  }
+  end
 end
