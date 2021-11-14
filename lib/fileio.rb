@@ -41,4 +41,11 @@ class Fileio < Enigma
   def filepath(filename)
     file = "./lib/" + filename
   end
+
+  def encrypted
+    message_in
+    message_encrypt
+    message_out
+    puts "Created '#{@file_out}' with the key #{@generated_key} and date #{@encrypted_date}"
+  end
 end
