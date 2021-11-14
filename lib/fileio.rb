@@ -29,4 +29,12 @@ class Fileio < Enigma
     end
     @message = encrypted_done
   end
+
+  def message_out
+    file = File.open(filepath(@file_out), "w+")
+    @message.each do |line|
+      file.write(line[:encryption] + "\n")
+    end
+    file.close
+  end
 end
