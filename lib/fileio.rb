@@ -64,4 +64,11 @@ class Fileio < Enigma
     end
     file.close
   end
+
+  def decrypted
+    message_in
+    message_decrypt
+    cipher_out
+    puts "Created '#{@file_out}' with the key #{@key} and date #{@date}"
+  end
 end
