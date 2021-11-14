@@ -10,7 +10,7 @@ class Enigma
   output = {
     :encryption => scramble(message, key, date),
     :key => key,
-    :date => date
+    :date => date.strftime("%m%d%Y")
   }
   end
 
