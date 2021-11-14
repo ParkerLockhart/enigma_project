@@ -19,4 +19,14 @@ class Fileio < Enigma
     end
   end
 
+  def message_encrypt
+    info = encrypt(message[0])
+    @generated_key = info[:key]
+    @encrypted_date = info[:date]
+    encrypted_done = []
+    message.each do |line|
+      encrypted_done << encrypt(line, @generated_key)
+    end
+    @message = encrypted_done
+  end
 end
