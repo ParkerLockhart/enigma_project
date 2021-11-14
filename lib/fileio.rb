@@ -12,4 +12,11 @@ class Fileio < Enigma
     @generated_key = nil
     @encrypted_date = nil
   end
+
+  def message_in
+    File.foreach(filepath(@file_in), chomp: true) do |line|
+      @message << line
+    end
+  end
+
 end
