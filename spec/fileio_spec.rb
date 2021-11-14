@@ -30,4 +30,10 @@ describe Fileio do
       expect(@handler.date).to eq("240818")
     end
   end
+
+  describe '#message_in' do
+    it 'reads message lines into array' do
+      expect(@handler.message).to be_instance_of(Array)
+    end
+  end    
 end
