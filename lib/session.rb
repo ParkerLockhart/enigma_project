@@ -29,4 +29,20 @@ class Session
     puts "It is currently #{@time.strftime("%A, %B %d %Y at %I:%M %p")}."
     encrypt_or_decrypt
   end
+
+  def encrypt_or_decrypt
+    puts " "*3
+    puts "Please type the letter E if you would like to encrypt a message, D to decrypt a message, or Q to quit the program."
+    path = gets.chomp
+    if path.upcase == "E"
+      encrypt_lobby
+    elsif path.upcase == "D"
+      decrypt_lobby
+    elsif path.upcase == "Q"
+      exit
+    else
+      puts "I'm sorry, I can only accept the letters E, D, or Q as input."
+      encrypt_or_decrypt
+    end
+  end
 end
