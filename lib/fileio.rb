@@ -56,4 +56,12 @@ class Fileio < Enigma
     end
     @message = decrypted_done
   end
+
+  def cipher_out
+    file = File.open(filepath(@file_out), "w+")
+    @message.each do |line|
+      file.write(line[:decryption] + "\n")
+    end
+    file.close
+  end
 end
