@@ -2,10 +2,39 @@ require './lib/scrambler'
 require 'date'
 
 describe Scrambler do
-  let(:a_class) do
-    Class.new do
-      extend Scrambler
+  before(:each) do
+    @scrambler = Scrambler.new
+  end
+
+  describe '#initialize' do
+    it 'exists' do
+      expect(@scrambler).to be_instance_of(Scrambler)
     end
+
+    it 'has a offset' do
+      expect(@scrambler.offset).to be_instance_of(Hash)
+      expect(@scramber.offset.keys).to eq(["A", "B", "C", "D"])
+    end
+
+    it 'has a key' do
+      expect(@scrambler.key).to be_instance_of(String)
+      expect(@scrambler.key.length).to eq(5)
+    end
+
+    it 'has a date' do
+      expect(@scrambler.date).to be_instance_of(String)
+      expect(@scrambler.date.length).to eq(6)
+    end
+
+    it 'has a shift' do
+      expect(@scrambler.shift).to be_instance_of(Hash)
+      expect(@scrambler.shift.keys).to eq(["A", "B", "C", "D"])
+    end
+
+    it 'has a set' do
+      expect(@scrambler.set).to be_instance_of(Array)
+      expect(@scrambler.set.length).to eq(27)
+    end 
   end
 
   describe '#key_generator' do
