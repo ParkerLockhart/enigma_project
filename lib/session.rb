@@ -8,4 +8,11 @@ class Session
     @time = Time.now
     @date = Date.today
   end
-end 
+
+  def start
+    puts " "*3
+    puts "~ * ~ * Welcome to Enigma * ~ * ~"
+    puts " "*3
+    greeting
+  end
+end
