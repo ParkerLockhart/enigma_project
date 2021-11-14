@@ -37,4 +37,8 @@ class Fileio < Enigma
     end
     file.close
   end
+
+  def filepath(filename)
+    file = "./lib/" + filename
+  end
 end
