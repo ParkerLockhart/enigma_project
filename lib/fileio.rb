@@ -48,4 +48,12 @@ class Fileio < Enigma
     message_out
     puts "Created '#{@file_out}' with the key #{@generated_key} and date #{@encrypted_date}"
   end
+
+  def message_decrypt
+    decrypted_done = []
+    message.each do |line|
+      decrypted_done << decrypt(line, @key, @date)
+    end
+    @message = decrypted_done
+  end
 end
