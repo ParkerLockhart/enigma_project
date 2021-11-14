@@ -45,4 +45,13 @@ class Session
       encrypt_or_decrypt
     end
   end
+
+  def encrypt_lobby
+   print "ENCRYPTION MODULE INITIALIZING"
+   3.times do
+     sleep(0.5)
+     print "."
+   end
+   puts " "*3
+ end 
 end
