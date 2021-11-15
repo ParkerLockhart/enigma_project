@@ -11,7 +11,7 @@ class Enigma
     output = {
       :encryption => scrambler.scramble(message),
       :key => key,
-      :date => date_fixer(date).to_s.rjust(8, "0")
+      :date => date_fixer(date).to_s.rjust(6, "0")
     }
   end
 
@@ -20,7 +20,7 @@ class Enigma
     output = {
       :decryption => scrambler.unscramble(cipher),
       :key => key,
-      :date => date_fixer(date).to_s.rjust(8, "0")
+      :date => date_fixer(date).to_s.rjust(6, "0")
     }
   end
 end
