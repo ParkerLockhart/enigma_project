@@ -15,21 +15,16 @@ RSpec.describe Enigma do
     it 'encrypts a message' do
       expect(@enigma.encrypt("Hello World!", "02715", "08041995")).to be_instance_of(Hash)
       expect(@enigma.encrypt("Hello World!", "02715", "08041995").keys).to eq([:encryption, :key, :date])
-      expect(@enigma.encrypt("Hello World!", "02715", "08041995")).to eq({:date=>"08041995", :encryption=>"jgnnqbyqtnf!", :key=>"02715"})
+      expect(@enigma.encrypt("Hello World!", "02715", "08041995")[:encryption]).not_to eq("Hello World!")
     end
   end
 
   describe '#decrypt' do
     it 'decrypts a cipher' do
-      expected = {
-        :decryption=>"hello world!",
-        :key=>"02715",
-        :date=>"08041995"
-      }
-      expect(@enigma.decrypt("jgnnqbyqtnf!", "02715", "08041995")).to be_instance_of(Hash)
-      expect(@enigma.decrypt("jgnnqbyqtnf!", "02715", "08041995").keys).to eq([:decryption, :key, :date])
-      expect(@enigma.decrypt("jgnnqbyqtnf!", "02715", "08041995")).to eq(expected)
+      decrypted = "hello world!"
+      expect(@enigma.decrypt("jedeq ohtlw!", "02715", "08041995")).to be_instance_of(Hash)
+      expect(@enigma.decrypt("jedeq ohtlw!", "02715", "08041995").keys).to eq([:decryption, :key, :date])
+      expect(@enigma.decrypt("jedeq ohtlw!", "02715", "08041995")[:decryption]).to eq(decrypted)
     end
-  end 
-
+  end
 end

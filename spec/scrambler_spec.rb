@@ -2,51 +2,57 @@ require './lib/scrambler'
 require 'date'
 
 describe Scrambler do
-  let(:a_class) do
-    Class.new do
-      extend Scrambler
+  before(:each) do
+    @scrambler = Scrambler.new("02715", "08041995")
+  end
+
+  describe '#initialize' do
+    it 'exists' do
+      expect(@scrambler).to be_instance_of(Scrambler)
+    end
+
+    it 'has a key' do
+      expect(@scrambler.key).to be_instance_of(String)
+      expect(@scrambler.key.length).to eq(5)
+      expect(@scrambler.key).to eq("02715")
+    end
+
+    it 'has a date' do
+      expect(@scrambler.date).to be_instance_of(String)
+      expect(@scrambler.date.length).to eq(8)
+      expect(@scrambler.date).to eq("08041995")
+    end
+
+    it 'has an offset' do
+      expect(@scrambler.offset).to be_instance_of(Hash)
+      expect(@scrambler.offset.keys).to eq(["A", "B", "C", "D"])
     end
   end
 
-  describe '#key_generator' do
-    it 'generates random key' do
-      expect(0..99999).to cover(a_class.key_generator.to_i)
-      expect(a_class.key_generator.to_s.length).to eq(5)
-    end
-  end
-
-  describe '#offset_generator' do
-    it 'generates offset from date' do
-      expect(a_class.offset_generator(Date.today)).to be_instance_of(Hash)
-      expect(a_class.offset_generator(Date.today).keys).to eq(["A", "B", "C", "D"])
-    end
-  end
-
-  describe '#shift_generator' do
-    it 'generates shift from key and offset' do
-      key = "02715"
-      offset = {"A" => 1, "B" => 0, "C" => 2, "D" => 5}
-      expect(a_class.shift_generator(key, offset)).to be_instance_of(Hash)
-      expect(a_class.shift_generator(key, offset)).to eq({"A" => 3, "B" => 27, "C" => 73, "D" => 20})
+  describe '#shift' do
+    it 'generates shift from offset and key' do
+      expect(@scrambler.shift).to be_instance_of(Hash)
+      expect(@scrambler.shift.keys).to eq(["A", "B", "C", "D"])
+      expect(@scrambler.shift).not_to eq(@scrambler.offset)
     end
   end
 
   describe '#scramble' do
     it 'encrypts' do
       message = "Hello World!"
-      expect(a_class.scramble(message, "02715", "08041995")).to be_instance_of(String)
-      expect(a_class.scramble(message, "02715", "08041995").length).to eq(message.length)
-      expect(a_class.scramble(message, "02715", "08041995")).not_to eq(message)
+      expect(@scrambler.scramble(message)).to be_instance_of(String)
+      expect(@scrambler.scramble(message).length).to eq(message.length)
+      expect(@scrambler.scramble(message)).not_to eq(message)
     end
   end
 
   describe '#unscramble' do
     it 'decrypts' do
       message = "hello world!"
-      cipher = "jgnnqbyqtnf!"
-      expect(a_class.unscramble(cipher, "02715", "08041995")).to be_instance_of(String)
-      expect(a_class.unscramble(cipher, "02715", "08041995").length).to eq(cipher.length)
-      expect(a_class.unscramble(cipher, "02715", "08041995")).to eq(message)
+      cipher = "jedeq ohtlw!"
+      expect(@scrambler.unscramble(cipher)).to be_instance_of(String)
+      expect(@scrambler.unscramble(cipher).length).to eq(cipher.length)
+      expect(@scrambler.unscramble(cipher)).to eq(message)
     end
   end
 end
