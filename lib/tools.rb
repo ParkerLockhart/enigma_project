@@ -71,4 +71,8 @@ module Tools
     end
     index
   end
+
+  def filepath(filename)
+    file = "./lib/" + filename
+  end  
 end
