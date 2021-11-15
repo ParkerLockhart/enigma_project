@@ -61,4 +61,10 @@ describe Tools do
       expect(a_class.shift_d).to be_instance_of(Array)
     end
   end
+
+  describe '#filepath' do
+    it 'concatenates directory onto filename' do
+      expect(a_class.filepath("message.txt")).to eq("./lib/message.txt")
+    end
+  end 
 end
