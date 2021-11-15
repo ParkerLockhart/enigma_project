@@ -1,24 +1,26 @@
 require './lib/scrambler'
 
 class Enigma
-  include Scrambler
+  include Tools
 
   def initialize
   end
 
   def encrypt(message, key = key_generator, date = Date.today)
-  output = {
-    :encryption => scramble(message, key, date),
-    :key => key,
-    :date => date.strftime("%m%d%Y")
-  }
+    scrambler = Scrambler.new(key, date)
+    output = {
+      :encryption => scrambler.scramble(message),
+      :key => key,
+      :date => date_fixer(date).to_s.rjust(8, "0")
+    }
   end
 
   def decrypt(cipher, key, date = Date.today)
+    scrambler = Scrambler.new(key, date)
     output = {
-      :decryption => unscramble(cipher, key, date),
+      :decryption => scrambler.unscramble(cipher),
       :key => key,
-      :date => date
+      :date => date_fixer(date).to_s.rjust(8, "0")
     }
   end
 end
