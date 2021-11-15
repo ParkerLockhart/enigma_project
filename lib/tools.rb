@@ -12,7 +12,7 @@ module Tools
 
   def date_fixer(date)
     if date.class == Date
-      date = date.strftime("%m%d%Y").to_i
+      date = date.strftime("%m%d%y").to_i
     elsif date.class == String
       date = date.to_i
     end
@@ -74,5 +74,5 @@ module Tools
 
   def filepath(filename)
     file = "./lib/" + filename
-  end  
+  end
 end
