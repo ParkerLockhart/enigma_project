@@ -48,7 +48,7 @@ class Fileio < Enigma
       file.write(line[:encryption] + "\n")
     end
     file.close
-    puts "Created '#{@input.file_out}' with the key #{@generated_key} and date #{@encrypted_date}"
+    p "Created '#{@input.file_out}' with the key #{@generated_key} and date #{@encrypted_date}"
   end
 
   def cipher_decrypt
@@ -65,6 +65,6 @@ class Fileio < Enigma
       file.write(line[:decryption] + "\n")
     end
     file.close
-    puts "Created '#{@input.file_out}' with the key #{@input.key} and date #{@input.date}"
+    p "Created '#{@input.file_out}' with the key #{@input.key} and date #{@input.date}"
   end
 end
