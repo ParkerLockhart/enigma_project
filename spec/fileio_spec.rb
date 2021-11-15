@@ -9,20 +9,11 @@ describe Fileio do
     @input = instance_double("Input")
     @handler.input = @input
 
-    @file = "Hello world!"
-    @file_in_e = "message.txt"
-    @file_in_d = "encrypted.txt"
-    @file_out_e = "encrypted.txt"
-    @file_out_d = "decrypted.txt"
-
     allow(@input).to receive(:key).and_return("04269")
     allow(@input).to receive(:date).and_return("111521")
+
     allow(@handler).to receive(:file_input).and_return(["hello world!"])
     allow(@handler).to receive(:message).and_return(@handler.file_input)
-    @encrypted_message = "Created '#{@file_out_e}' with the key #{@handler.generated_key} and date #{@handler.encrypted_date}"
-    allow(@handler).to receive(:encrypted).and_return(@encrypted_message)
-    @decrypted_message = "Created '#{@file_out_d}' with the key #{@input.key} and date #{@input.date}"
-    allow(@handler).to receive(:decrypted).and_return(@decrypted_message)
   end
 
   describe '#initialize' do
@@ -31,8 +22,8 @@ describe Fileio do
     end
 
     it 'has input' do
-      allow(@input).to receive(:file_in).and_return(@file_in_e)
-      allow(@input).to receive(:file_out).and_return(@file_out_e)
+      allow(@input).to receive(:file_in).and_return("message.txt")
+      allow(@input).to receive(:file_out).and_return("encrypted.txt")
       expect(@input.file_in).to eq("message.txt")
       expect(@input.file_out).to eq("encrypted.txt")
       expect(@input.key).to eq("04269")
@@ -60,12 +51,18 @@ describe Fileio do
 
   describe '#encryption_process' do
     it 'calls all methods for encryption process' do
+      file = double("file")
+      allow(file).to receive(:open).with("message.txt", "w+").and_yield("Hello World!")
+      allow(@input).to receive(:file_out).and_return("encrypted.txt")
       expect(@handler.encryption_process).to eq(@handler.encrypted)
     end
   end
 
   describe '#decryption_process' do
     it 'calls all methods for decryption process' do
+      file = double("file")
+      allow(file).to receive(:open).with("encrypted.txt", "w+").and_yield("oxoavszdydg!")
+      allow(@input).to receive(:file_out).and_return("decrypted.txt")
       expect(@handler.decryption_process).to eq(@handler.decrypted)
     end
   end
@@ -97,13 +94,21 @@ describe Fileio do
 
   describe '#encrypted' do
     it 'prints encryption confirmation to console' do
-      expect(@handler.encrypted).to eq(@encrypted_message)
+      file = double("file")
+      allow(file).to receive(:open).with("message.txt", "w+").and_yield("Hello World!")
+      allow(@input).to receive(:file_out).and_return("encrypted.txt")
+      encrypted_message = "Created '#{@input.file_out}' with the key #{@handler.generated_key} and date #{@handler.encrypted_date}"
+      expect(@handler.encrypted).to eq(encrypted_message)
     end
   end
 
   describe '#decrypted' do
     it 'prints decryption confirmation to console' do
-      expect(@handler.decrypted).to eq(@decrypted_message)
+      file = double("file")
+      allow(file).to receive(:open).with("encrypted.txt", "w+").and_yield("oxoavszdydg!")
+      allow(@input).to receive(:file_out).and_return("decrypted.txt")
+      decrypted_message = "Created '#{@input.file_out}' with the key #{@input.key} and date #{@input.date}"
+      expect(@handler.decrypted).to eq(decrypted_message)
     end
   end
 end
