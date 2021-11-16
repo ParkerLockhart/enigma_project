@@ -1,34 +1,32 @@
 require './lib/enigma'
 require './lib/tools'
+require './lib/input'
 
 class Fileio < Enigma
   include Tools
-  attr_accessor :file_in, :file_out, :key, :date, :message
+  attr_accessor :input, :message, :generated_key, :encrypted_date
 
   def initialize
-    @file_in = ARGV[0]
-    @file_out = ARGV[1]
-    @key = ARGV[2]
-    @date = ARGV[3]
+    @input = Input.new
     @message = []
     @generated_key = nil
     @encrypted_date = nil
   end
 
   def encryption_process
-    input
+    file_input
     message_encrypt
     encrypted
   end
 
   def decryption_process
-    input
+    file_input
     cipher_decrypt
     decrypted
   end
 
-  def input
-    File.foreach(filepath(@file_in), chomp: true) do |line|
+  def file_input
+    File.foreach(filepath(@input.file_in), chomp: true) do |line|
       @message << line
     end
   end
@@ -45,28 +43,28 @@ class Fileio < Enigma
   end
 
   def encrypted
-    file = File.open(filepath(@file_out), "w+")
+    file = File.open(filepath(@input.file_out), "w+")
     @message.each do |line|
       file.write(line[:encryption] + "\n")
     end
     file.close
-    puts "Created '#{@file_out}' with the key #{@generated_key} and date #{@encrypted_date}"
+    p "Created '#{@input.file_out}' with the key #{@generated_key} and date #{@encrypted_date}"
   end
 
   def cipher_decrypt
     decrypted_done = []
     message.each do |line|
-      decrypted_done << decrypt(line, @key, @date)
+      decrypted_done << decrypt(line, @input.key, @input.date)
     end
     @message = decrypted_done
   end
 
   def decrypted
-    file = File.open(filepath(@file_out), "w+")
+    file = File.open(filepath(@input.file_out), "w+")
     @message.each do |line|
       file.write(line[:decryption] + "\n")
     end
     file.close
-    puts "Created '#{@file_out}' with the key #{@key} and date #{@date}"
+    p "Created '#{@input.file_out}' with the key #{@input.key} and date #{@input.date}"
   end
 end
