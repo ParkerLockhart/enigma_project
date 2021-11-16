@@ -20,7 +20,7 @@ Meets expectations
   - Encrypt/decrypt command line interfaces successfully implemented.
     - Encrypt/decrypt runners read/write to files successfully and have correct command line output.  
 
-*OOP*
+*OOP:*
 Meets expectations
   - Project is broken into logical components that are appropriately encapsulated.
     - Project includes Tools module for methods used by multiple classes. 
@@ -31,14 +31,14 @@ Meets expectations
   - Student can articulate the single responsibilities of the various components.
     - Each method performs only one function and only handles data it uses. 
 
-*Ruby conventions and mechanics*
+*Ruby conventions and mechanics:*
 Meets expectations
   - Code is mostly properly indented, spaced, and lines are not excessively long.
   - Class, method, variable, and file names follow convention. 
   - Some enumerables/data structures chosen are the most efficient tool for a given job, and students can speak as to why those enumerables/data structures were      chosen. 
   - At least one hash is implemented in a way that makes logical sense.
 
-*Test driven development*
+*Test driven development:*
 Meets expectations
   - Every method is tested at both the unit and integration level, and completely verify expected behavior (i.e., if a single method does 3 things, all 3 things are explicitly tested). 
     - Testing includes as much functionality as possible, including using mocks to test certain methods and stubs where needed for integration testing. 
